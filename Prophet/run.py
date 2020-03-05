@@ -9,7 +9,6 @@ from model import train
 from model import predict
 
 
-
 def main():
     data_tomato_price = pd.read_csv("data/data_tomato_price.csv")
     # call preprocess function
@@ -21,18 +20,23 @@ def main():
     #  of days using the helper method Prophet.make_future_dataframe
     ts_test = model.make_future_dataframe(periods=365, include_history=True)
     # call predict function
-    
+
     preds = predict(model, ts_test)
     print("Price tomato prediction:")
     print(preds[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
     # To see how the model fits existing data and what a forecast over 1 year looks like.
-    # we can now study the fit of the model - in order to do so, we need to creat another df
+    # we can now study the fit of the model - in order to do so, we need to
+    # creat another df
     plot_pred = model.plot(preds)
     plt.legend(loc='best', fontsize=20)
     model.plot_components(preds, uncertainty=False)
 
-    #Prophet Diagnostics:
-    df_cv = cross_validation(model, initial='730 days', period='180 days', horizon = '365 days')
+    # Prophet Diagnostics:
+    df_cv = cross_validation(
+        model,
+        initial='730 days',
+        period='180 days',
+        horizon='365 days')
     print("Result using cross Validation:")
     print(df_cv.head())
     print("Diagnostics:  mae, mape...")

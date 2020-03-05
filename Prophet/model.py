@@ -27,7 +27,8 @@ def preprocess(df):
     # I do a copy of DataFrame
     ts = df.copy()
     # I modified DataFrame to adapt to Prophet: the prophet package expects input as a
-    # dataframe with the first column indicating time and the second indicating the time series we wish to forecast
+    # dataframe with the first column indicating time and the second
+    # indicating the time series we wish to forecast
     ts = ts.rename(columns={'date': 'ds', 'tomato_price': 'y'})
 
     return ts
@@ -40,11 +41,36 @@ def train(ts):
     :type ts: pd.DataFrame
     :return: a trained model
     """
-    outliers = pd.to_datetime(['2015-01-16', '2015-01-30', '2015-02-13', '2015-02-20', '2015-02-27', '2015-03-04', '2015-03-27',
-                               '2016-01-01', '2016-01-15', '2016-01-22', '2016-01-29', '2016-03-25',
-                               '2017-03-17', '2017-03-24', '2018-02-02', '2018-02-03', '2018-02-16', '2018-02-23',
-                               '2018-03-16', '2018-03-23', '2018-03-30', '2018-09-21', '2018-09-28',
-                               '2019-05-04', '2019-05-07', '2019-09-13', '2019-09-20', '2019-12-13', '2019-12-20', '2019-12-27'])
+    outliers = pd.to_datetime(['2015-01-16',
+                               '2015-01-30',
+                               '2015-02-13',
+                               '2015-02-20',
+                               '2015-02-27',
+                               '2015-03-04',
+                               '2015-03-27',
+                               '2016-01-01',
+                               '2016-01-15',
+                               '2016-01-22',
+                               '2016-01-29',
+                               '2016-03-25',
+                               '2017-03-17',
+                               '2017-03-24',
+                               '2018-02-02',
+                               '2018-02-03',
+                               '2018-02-16',
+                               '2018-02-23',
+                               '2018-03-16',
+                               '2018-03-23',
+                               '2018-03-30',
+                               '2018-09-21',
+                               '2018-09-28',
+                               '2019-05-04',
+                               '2019-05-07',
+                               '2019-09-13',
+                               '2019-09-20',
+                               '2019-12-13',
+                               '2019-12-20',
+                               '2019-12-27'])
 
     outliers_days = pd.DataFrame({
         'holiday': 'Atypical',
